@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>DateChooser.qml</file>
+        <file>FormBuild.qml</file>
+    </qresource>
+</RCC>
