@@ -33,7 +33,7 @@ Item {
       * 2) if isset to "edition" all fields will not in "readonly" mode and fields have the value setted (if exists)
       * 3) if isset to "newRegister" all fields will not in "readonly" mode and fields have a empty value or not selected any value
       */
-    property string action: "view"
+    property string actionType: "view"
 
     /**
       * on each field change, the value will be saved in formData and this signal will be emitted
@@ -62,10 +62,10 @@ Item {
 
             TextField {
                 id: optionRadioAction
-                text: action === "newRegister" ? "" : args["checked_label"]
+                text: actionType === "newRegister" ? "" : args["checked_label"]
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: fieldWidth
-                readOnly: action !== "edit"
+                readOnly: actionType !== "edit"
                 onActiveFocusChanged: {
                     if (!readOnly && focus)
                         dialogRadio.open()
@@ -108,7 +108,7 @@ Item {
                         model: args["options"]
 
                         RadioButton {
-                            checked: action !== "newRegister" && modelData.value === args["checked_option"]
+                            checked: actionType !== "newRegister" && modelData.value === args["checked_option"]
                             text: modelData.label
                             width: fieldWidth
 
@@ -154,16 +154,16 @@ Item {
                 DateChooser {
                     id: dateChooser
                     width: fieldWidth
-                    valueSelected: action === "newRegister" ? "" : args["value"]
+                    valueSelected: actionType === "newRegister" ? "" : args["value"]
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
 
             TextField {
                 id: dateChooseAction
-                text: action === "newRegister" ? "" : args["value"]
+                text: actionType === "newRegister" ? "" : args["value"]
                 width: parent.width
-                readOnly: action !== "edit"
+                readOnly: actionType !== "edit"
                 anchors.horizontalCenter: parent.horizontalCenter
                 onActiveFocusChanged: {
                     if (!readOnly && focus)
@@ -182,8 +182,8 @@ Item {
             width: fieldWidth
             inputMethodHints: args["field_name"].indexOf("email") ? Qt.ImhEmailCharactersOnly|Qt.ImhLowercaseOnly : Qt.ImhNone
             maximumLength: args["lenght"]
-            text: action === "newRegister" ? "" : args["value"]
-            readOnly: action !== "edit"
+            text: actionType === "newRegister" ? "" : args["value"]
+            readOnly: actionType !== "edit"
             anchors.horizontalCenter: parent.horizontalCenter
             onTextChanged: save(args["field_name"], text)
 
@@ -196,10 +196,10 @@ Item {
 
         TextArea {
             width: fieldWidth
-            text: action === "newRegister" ? "" : args["value"]
+            text: actionType === "newRegister" ? "" : args["value"]
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#444"
-            readOnly: action !== "edit"
+            readOnly: actionType !== "edit"
             onTextChanged: save(args["field_name"], text)
 
             property var args: ({})
@@ -261,13 +261,13 @@ Item {
                 height: Button.height + 10
 
                 Button {
-                    text: action === "edit" ? "lock fields" : "edit"
-                    onClicked: action = action === "edit" ? "view" : "edit"
+                    text: actionType === "edit" ? "lock fields" : "edit"
+                    onClicked: actionType = actionType === "edit" ? "view" : "edit"
                 }
 
                 Button {
                     text: "Save"
-                    enabled: action === "edit"
+                    enabled: actionType === "edit"
                     onClicked: formUpdate(formData)
                 }
             }
