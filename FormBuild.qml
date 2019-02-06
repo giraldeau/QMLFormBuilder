@@ -228,7 +228,6 @@ Item {
                     id: column
                     spacing: 0
                     width: parent.width
-                    anchors.horizontalCenter: parent.horizontalCenter
 
                     Label {
                         color: "#777"
@@ -260,28 +259,16 @@ Item {
             RowLayout {
                 width: flickable.implicitWidth * 10
                 height: Button.height + 10
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
 
                 Button {
-                    text: action == "edit" ? "lock fields" :"edit"
-                    onClicked: action = action == "edit" ? "view" : "edit"
-                    anchors {
-                        left: parent.left
-                        leftMargin: 5
-                    }
+                    text: action === "edit" ? "lock fields" : "edit"
+                    onClicked: action = action === "edit" ? "view" : "edit"
                 }
 
                 Button {
                     text: "Save"
                     enabled: action === "edit"
                     onClicked: formUpdate(formData)
-                    anchors {
-                        right: parent.right
-                        rightMargin: 5
-                    }
                 }
             }
         }
